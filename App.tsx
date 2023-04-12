@@ -28,6 +28,10 @@ import CardComponent from './src/components/CardComponent';
 
 import {Post} from './src/types/Props';
 import {CardProps} from './src/types/CardProps';
+import { HomeIcon } from './src/assets/icons';
+import { NavigationContainer } from '@react-navigation/native';
+import { BottomTabs } from './src/navigation/navigators/tab-navigator';
+import { AppNavigator } from './src/navigation/navigators/app-navigator';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -117,55 +121,57 @@ function App(): JSX.Element {
     );
   };
 
-  return (
-    <SafeAreaView style={styles.flex}>
-      <FlatList
-        data={data}
-        renderItem={renderCardComponent}
-        keyExtractor={data => data.title}
-        ListEmptyComponent={
-          <View>
-            <Text>No Data</Text>
-          </View>
-        }
-        ListHeaderComponent={
-          <View style={styles.headerStyle}>
-            <Image source={cat} style={styles.headerImageStyle} />
-          </View>
-        }
-        ListFooterComponent={
-          <View style={styles.footerStyle}>
-            <Text style={{fontSize: 32, fontWeight: 'bold', color: 'black'}}>
-              {number} Favorite
-            </Text>
-          </View>
-        }
-        ItemSeparatorComponent={() => (
-          <View
-            style={{
-              width: '100%',
-              height: 30,
-              backgroundColor: '#F5FCFF',
-            }}></View>
-        )}
-      />
+  return (<NavigationContainer>
+    <AppNavigator/>
+  </NavigationContainer>)
+  //   <SafeAreaView style={styles.flex}>
+  //     <FlatList
+  //       data={data}
+  //       renderItem={renderCardComponent}
+  //       keyExtractor={data => data.title}
+  //       ListEmptyComponent={
+  //         <View>
+  //           <Text>No Data</Text>
+  //         </View>
+  //       }
+  //       ListHeaderComponent={
+  //         <View style={styles.headerStyle}>
+  //           <HomeIcon width={20} height={20}/>
+  //         </View>
+  //       }
+  //       ListFooterComponent={
+  //         <View style={styles.footerStyle}>
+  //           <Text style={{fontSize: 32, fontWeight: 'bold', color: 'black'}}>
+  //             {number} Favorite
+  //           </Text>
+  //         </View>
+  //       }
+  //       ItemSeparatorComponent={() => (
+  //         <View
+  //           style={{
+  //             width: '100%',
+  //             height: 30,
+  //             backgroundColor: '#F5FCFF',
+  //           }}></View>
+  //       )}
+  //     />
 
-      {
-        // <View style={styles.buttonContainer}>
-        //   <MathButtons value={-1} onPress={onPress}/>
-        //   <MathButtons value={1} onPress={onPress}/>
-        // </View>
-        // <View style={styles.textContainer} ><Text style={styles.textStyle}>{number}</Text></View>
-        // <View style={styles.buttonContainer}>
-        //   <MathButtons value={-2} onPress={onPress}/>
-        //   <MathButtons value={2} onPress={onPress}/>
-        // </View>
-        // <View style={[styles.buttonContainer,{justifyContent:'center'}]}>
-        //   <MathButtons value={0} onPress={onPressReset}/>
-        // </View>
-      }
-    </SafeAreaView>
-  );
+  //     {
+  //       // <View style={styles.buttonContainer}>
+  //       //   <MathButtons value={-1} onPress={onPress}/>
+  //       //   <MathButtons value={1} onPress={onPress}/>
+  //       // </View>
+  //       // <View style={styles.textContainer} ><Text style={styles.textStyle}>{number}</Text></View>
+  //       // <View style={styles.buttonContainer}>
+  //       //   <MathButtons value={-2} onPress={onPress}/>
+  //       //   <MathButtons value={2} onPress={onPress}/>
+  //       // </View>
+  //       // <View style={[styles.buttonContainer,{justifyContent:'center'}]}>
+  //       //   <MathButtons value={0} onPress={onPressReset}/>
+  //       // </View>
+  //     }
+  //   </SafeAreaView>
+  // );
 }
 const styles = StyleSheet.create({
   flex: {
