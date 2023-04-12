@@ -17,9 +17,16 @@ const more = require('../assets/more-horizontal.png');
 const people = require('../assets/people.png');
 const comment = require('../assets/comment.png');
 const send = require('../assets/send.png');
-const printText = text => console.log(text);
+const printText = (text: string) => console.log(text);
 
-export const Texts = () => {
+import {Post} from '../types/Props';
+import {useState} from 'react';
+interface Postare {
+  m1: Post;
+  onPress: (title: string) => void;
+}
+
+export const Texts = (props: Postare) => {
   return (
     <View style={Styles.sectionContainer}>
       <View style={{flexDirection: 'row'}}>
@@ -29,7 +36,7 @@ export const Texts = () => {
         </View>
         <View>
           <Text style={Styles.nameStyle}>
-            Sebastian Olaru <Text style={{fontWeight: 'normal'}}>is at</Text>{' '}
+            {props.m1.title} <Text style={{fontWeight: 'normal'}}>is at</Text>{' '}
             Linnify
           </Text>
           <Text style={Styles.nameStyle}>Cluj Napoca</Text>
@@ -54,13 +61,15 @@ export const Texts = () => {
 
       {/*Content*/}
       <Text style={[Styles.textStyle, {marginVertical: 30}]}>
-        Multumesc Gala RXF pentru premiul - Cel mai bun canal de educatie 2022-
+        {props.m1.description}
       </Text>
       <View style={{flexDirection: 'row'}}>
-        <Image source={cat} style={[Styles.imageStyle, {height: 350}]}></Image>
+        <Image
+          source={props.m1.image}
+          style={[Styles.imageStyle, {height: 350}]}></Image>
         <View>
-          <Image source={cat} style={Styles.imageStyle}></Image>
-          <Image source={cat} style={Styles.imageStyle}></Image>
+          <Image source={props.m1.image} style={Styles.imageStyle}></Image>
+          <Image source={props.m1.image} style={Styles.imageStyle}></Image>
         </View>
       </View>
 
@@ -89,7 +98,7 @@ export const Texts = () => {
               opacity: pressed ? 0.5 : 1,
             },
           ]}
-          onPress={onPress}>
+          onPress={() => props.onPress}>
           <Image source={heartOutline} style={Styles.buttonImageStyle} />
           <Text style={Styles.reactionTextStyle}>Like</Text>
         </Pressable>

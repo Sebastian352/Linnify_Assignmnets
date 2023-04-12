@@ -16,6 +16,7 @@ const cat = require('../assets/cat.png');
 
 export const ScrollViews = () => {
   return (
+    <SafeAreaView>
     <ScrollView>
       <Texts></Texts>
       <View style={Styles.spacer}></View>
@@ -35,6 +36,7 @@ export const ScrollViews = () => {
       <View style={Styles.spacer}></View>
       <Texts></Texts>
     </ScrollView>
+    </SafeAreaView>
   );
 };
 
