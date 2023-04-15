@@ -28,10 +28,13 @@ import CardComponent from './src/components/CardComponent';
 
 import {Post} from './src/types/Props';
 import {CardProps} from './src/types/CardProps';
-import { HomeIcon } from './src/assets/icons';
-import { NavigationContainer } from '@react-navigation/native';
-import { BottomTabs } from './src/navigation/navigators/tab-navigator';
-import { AppNavigator } from './src/navigation/navigators/app-navigator';
+import {HomeIcon} from './src/assets/icons';
+import {NavigationContainer} from '@react-navigation/native';
+import {BottomTabs} from './src/navigation/navigators/tab-navigator';
+{
+  //import {AppNavigator} from './src/navigation/navigators/app-navigator';
+}
+import {AppNavigator} from './src_assignment/navigation/navigators/app-navigation';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -121,9 +124,11 @@ function App(): JSX.Element {
     );
   };
 
-  return (<NavigationContainer>
-    <AppNavigator/>
-  </NavigationContainer>)
+  return (
+    <NavigationContainer>
+      <AppNavigator />
+    </NavigationContainer>
+  );
   //   <SafeAreaView style={styles.flex}>
   //     <FlatList
   //       data={data}
