@@ -1,7 +1,7 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {BottomRoutes, BottomRoutesProps} from '../routes/bottom-route';
 import {useNavigation} from '@react-navigation/native';
-import {LogBox, Pressable, SafeAreaView, StyleSheet} from 'react-native';
+import {LogBox, Pressable, SafeAreaView, StyleSheet, Text} from 'react-native';
 import {Image} from 'react-native-svg';
 import {HomeIcon, PersonIcon, PlusCircleIcon} from '../../../src/assets/icons';
 import {AppRoutes} from '../routes/app-routes';
@@ -18,6 +18,7 @@ export const BottomTabs = () => {
       screenOptions={{
         tabBarStyle: {
           ...styles.bottomTab,
+          paddingBottom: 10,
         },
         headerShown: false,
       }}>
@@ -49,7 +50,7 @@ export const BottomTabs = () => {
         name={BottomRoutes.QR}
         component={QrScreen}
         options={{
-          tabBarLabel: 'Profile',
+          tabBarLabel: 'QR',
           tabBarIcon: ({focused}) => {
             let size: number;
 

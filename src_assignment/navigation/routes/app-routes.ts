@@ -1,11 +1,11 @@
 export enum AppRoutes{
     Home = 'Home',
-    Profile = 'Profile',
-    QR = 'QR',
+    ListScreen = 'ListScreen',
+    DetailsScreen = 'DetailsScreen',
 }
 
 export type AppRouteProps = {
     [AppRoutes.Home]: undefined;
-    [AppRoutes.Profile]: undefined;
-    [AppRoutes.QR]: undefined;
+    [AppRoutes.ListScreen]: undefined;
+    [AppRoutes.DetailsScreen]: undefined;
 }
