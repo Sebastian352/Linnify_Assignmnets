@@ -15,6 +15,7 @@ import HomeScreen from '../screens/HomeScreen';
 import {useNavigation} from '@react-navigation/native';
 import ListScreen from '../screens/ListScreen';
 import DetailsScreen from '../screens/DetailsScreen';
+import {ArrowIcon} from '../../assets/icons';
 
 const Stack = createStackNavigator<AppRouteProps>();
 
@@ -30,11 +31,11 @@ export const AppNavigator = () => {
         header: () => {
           return (
             <View style={styles.headerStyle}>
-              <View
-                style={{
-                  flex: 1 / 3,
-                  marginLeft: 15,
-                }}></View>
+              <Pressable
+                style={styles.headerLeft}
+                onPress={() => navigation.goBack()}>
+                <ArrowIcon width={30} height={30} />
+              </Pressable>
               <View
                 style={{
                   alignItems: 'center',
@@ -78,5 +79,11 @@ const styles = StyleSheet.create({
     flex: 1 / 3,
     alignItems: 'flex-end',
     marginRight: 15,
+  },
+
+  headerLeft: {
+    flex: 1 / 3,
+    alignItems: 'flex-start',
+    marginLeft: 15,
   },
 });

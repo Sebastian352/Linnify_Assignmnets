@@ -1,7 +1,14 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {BottomRoutes, BottomRoutesProps} from '../routes/bottom-route';
 import {useNavigation} from '@react-navigation/native';
-import {LogBox, Pressable, SafeAreaView, StyleSheet, Text} from 'react-native';
+import {
+  LogBox,
+  Pressable,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import {Image} from 'react-native-svg';
 import {HomeIcon, PersonIcon, PlusCircleIcon} from '../../../src/assets/icons';
 import {AppRoutes} from '../routes/app-routes';
@@ -26,7 +33,19 @@ export const BottomTabs = () => {
         name={BottomRoutes.Home}
         component={HomeScreen}
         options={{
-          tabBarLabel: 'Home',
+          tabBarLabel: ({focused, color}) => {
+            let size: number;
+            if (focused) {
+              size = 20;
+            } else {
+              size = 15;
+            }
+            return (
+              <Text style={{fontSize: size, color: color, fontWeight: 'bold'}}>
+                Home
+              </Text>
+            );
+          },
           tabBarIcon: ({focused}) => {
             let size: number;
 
@@ -50,7 +69,19 @@ export const BottomTabs = () => {
         name={BottomRoutes.QR}
         component={QrScreen}
         options={{
-          tabBarLabel: 'QR',
+          tabBarLabel: ({focused, color}) => {
+            let size: number;
+            if (focused) {
+              size = 20;
+            } else {
+              size = 15;
+            }
+            return (
+              <Text style={{fontSize: size, color: color, fontWeight: 'bold'}}>
+                QR
+              </Text>
+            );
+          },
           tabBarIcon: ({focused}) => {
             let size: number;
 
@@ -74,7 +105,24 @@ export const BottomTabs = () => {
         name={BottomRoutes.Profile}
         component={ProfileScreen}
         options={{
-          tabBarLabel: 'Profile',
+          tabBarLabel: ({focused, color}) => {
+            let size: number;
+            if (focused) {
+              size = 20;
+            } else {
+              size = 15;
+            }
+            return (
+              <Text
+                style={{
+                  fontSize: size,
+                  color: color,
+                  fontWeight: 'bold',
+                }}>
+                Profile
+              </Text>
+            );
+          },
           tabBarIcon: ({focused}) => {
             let size: number;
 

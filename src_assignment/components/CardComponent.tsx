@@ -9,17 +9,17 @@ interface CardProp {
 
 export const CardComponent = (props: CardProp) => {
   return (
-    <View style={style.component}>
-      <Pressable style={style.imageContainerStyle} onPress={props.onPress}>
+    <Pressable style={style.component} onPress={props.onPress}>
+      <View style={style.imageContainerStyle}>
         <Image source={props.prop.image} style={style.imageStyle} />
-      </Pressable>
+      </View>
       <View style={style.textContainerStyle}>
         <Text style={style.titleStyle}>{props.prop.title}</Text>
         <Text style={style.textStyle} numberOfLines={3}>
           {props.prop.description}
         </Text>
       </View>
-    </View>
+    </Pressable>
   );
 };
 
@@ -42,7 +42,7 @@ const style = StyleSheet.create({
   imageStyle: {
     zIndex: 1,
     height: 200,
-    borderRadius: 40,
+    borderRadius: 35,
     maxWidth: '100%',
     maxHeight: '100%',
     resizeMode: 'cover',

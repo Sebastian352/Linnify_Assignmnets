@@ -15,13 +15,15 @@ const data: Post[] = [
     id: 1,
     image: require('../../assets/inception.jpg'),
     title: 'Inception (2010)',
-    description: 'Descriere',
+    description:
+      "Cobb steals information from his targets by entering their dreams. Saito offers to wipe clean Cobb's criminal history as payment for performing an inception on his sick competitor's son.",
   },
   {
     id: 2,
     image: require('../../assets/parasite.jpg'),
     title: 'Parasite (2019)',
-    description: 'Descriere2',
+    description:
+      'The struggling Kim family sees an opportunity when the son starts working for the wealthy Park family. Soon, all of them find a way to work within the same household and start living a parasitic life.',
   },
   {
     id: 3,
@@ -55,6 +57,22 @@ export const ListScreen = () => {
         data={data}
         renderItem={renderCardComponent}
         ItemSeparatorComponent={() => (
+          <View
+            style={{
+              width: '100%',
+              height: 30,
+              backgroundColor: 'lightblue',
+            }}></View>
+        )}
+        ListHeaderComponent={() => (
+          <View
+            style={{
+              width: '100%',
+              height: 50,
+              backgroundColor: 'lightblue',
+            }}></View>
+        )}
+        ListFooterComponent={() => (
           <View
             style={{
               width: '100%',
