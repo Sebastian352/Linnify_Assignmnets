@@ -35,6 +35,7 @@ import {BottomTabs} from './src/navigation/navigators/tab-navigator';
   //import {AppNavigator} from './src/navigation/navigators/app-navigator';
 }
 import {AppNavigator} from './src_assignment/navigation/navigators/app-navigation';
+import Login from './src_assignment/navigation/screens/Login';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -125,9 +126,10 @@ function App(): JSX.Element {
   };
 
   return (
-    <NavigationContainer>
-      <AppNavigator />
-    </NavigationContainer>
+    <SafeAreaView style={{flex:1}}>
+      <Login/>
+    </SafeAreaView>
+
   );
   //   <SafeAreaView style={styles.flex}>
   //     <FlatList

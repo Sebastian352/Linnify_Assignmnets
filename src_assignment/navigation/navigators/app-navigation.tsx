@@ -2,10 +2,6 @@ import {
   CardStyleInterpolators,
   createStackNavigator,
 } from '@react-navigation/stack';
-import {
-  AppRouteProps,
-  AppRoutes,
-} from '/Linnify/AwesomeProject/src_assignment/navigation/routes/app-routes';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 import {TopTabHamburger} from './top-navigator';
 import {BottomTabs} from './bottom-navigator';
@@ -16,14 +12,14 @@ import {useNavigation} from '@react-navigation/native';
 import ListScreen from '../screens/ListScreen';
 import DetailsScreen from '../screens/DetailsScreen';
 import {ArrowIcon} from '../../assets/icons';
+import { AppRouteProps, AppRoutes } from '../routes/app-routes';
 
 const Stack = createStackNavigator<AppRouteProps>();
 
 export const AppNavigator = () => {
-  const navigation = useNavigation();
   return (
     <Stack.Navigator
-      screenOptions={{
+      screenOptions={({navigation}) => ({
         headerShown: true,
         headerTransparent: true,
         cardStyleInterpolator:
@@ -52,7 +48,7 @@ export const AppNavigator = () => {
             </View>
           );
         },
-      }}>
+      })}>
       <Stack.Screen name={AppRoutes.Home} component={BottomTabs}></Stack.Screen>
       <Stack.Screen name={AppRoutes.ListScreen} component={ListScreen} />
       <Stack.Screen name={AppRoutes.DetailsScreen} component={DetailsScreen} />

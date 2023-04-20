@@ -13,20 +13,30 @@ import {useNavigation} from '@react-navigation/native';
 import CardComponent from '../../components/CardComponent';
 import {CardProps} from '../../types/CardProps';
 import {Post} from '../../../src/types/Props';
+import { useEffect, useState } from 'react';
 
-const renderCardComponent = ({item}: ListRenderItemInfo<CardProps>) => {
-  return <CardComponent prop={item} onPress={() => console.log('Press')} />;
-};
+
 
 const DetailsScreen = ({route}) => {
-  const item: CardProps[] = [
+  const [sum, setSum] = useState<Number>(0);
+
+
+  const item: CardProps = 
     {
       id: route.params.id,
       image: route.params.image,
       title: route.params.title,
       description: route.params.description,
-    },
-  ];
+    }
+    {
+      useEffect(() => {
+        return () => console.log('log');
+      },[sum])
+    }
+    const renderCardComponent = (item: CardProps) => {
+      return <CardComponent prop={item} onPress={() => setSum(sum+1)} />;
+    };
+    
   return (
     <SafeAreaView
       style={{
@@ -35,7 +45,9 @@ const DetailsScreen = ({route}) => {
         justifyContent: 'center',
         backgroundColor: 'tomato',
       }}>
-      <View style={style.component}>
+        {renderCardComponent(item)}
+        <Pressable style={{width:50,height:50,marginTop:30, backgroundColor:'lightblue'}} onPress={()=>console.log(sum)}></Pressable>
+      {/* <View style={style.component}>
         <Pressable
           style={style.imageContainerStyle}
           onPress={route.params.onPress}>
@@ -45,7 +57,7 @@ const DetailsScreen = ({route}) => {
           <Text style={style.titleStyle}>{route.params.title}</Text>
           <Text style={style.textStyle}>{route.params.description}</Text>
         </View>
-      </View>
+      </View> */}
     </SafeAreaView>
   );
 };
