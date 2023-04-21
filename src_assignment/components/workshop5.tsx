@@ -1,29 +1,22 @@
 import {FlatList, StyleSheet, Text, View, Image, Pressable} from 'react-native';
 
 import {CardProps} from '../types/CardProps';
-import { ForwardedRef, forwardRef, useImperativeHandle, useState } from 'react';
-import { CardComponentRef } from '../types/CardComponentRef';
+import { useRef } from 'react';
 
 interface CardProp {
   prop: CardProps;
   onPress: () => void;
 }
 
+export const CardComponent = (props: CardProp) => {
+    const input = useRef
 
-
-export const CardComponent = forwardRef((props: CardProp,ref:ForwardedRef<CardComponentRef>) => {
-  
-  const [background,setBackground] = useState('white');
-
-  useImperativeHandle(ref,() =>({
-    setBackground:(bg:string) => {setBackground(bg)}
-  }));
   return (
     <Pressable style={style.component} onPress={props.onPress}>
       <View style={style.imageContainerStyle}>
         <Image source={props.prop.image} style={style.imageStyle} />
       </View>
-      <View style={[style.textContainerStyle,{backgroundColor:background}]}>
+      <View style={style.textContainerStyle}>
         <Text style={style.titleStyle}>{props.prop.title}</Text>
         <Text style={style.textStyle} numberOfLines={3}>
           {props.prop.description}
@@ -31,7 +24,7 @@ export const CardComponent = forwardRef((props: CardProp,ref:ForwardedRef<CardCo
       </View>
     </Pressable>
   );
-});
+};
 
 const style = StyleSheet.create({
   component: {

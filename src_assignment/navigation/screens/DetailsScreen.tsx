@@ -13,14 +13,21 @@ import {useNavigation} from '@react-navigation/native';
 import CardComponent from '../../components/CardComponent';
 import {CardProps} from '../../types/CardProps';
 import {Post} from '../../../src/types/Props';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { CardComponentRef } from '../../types/CardComponentRef';
 
 
 
 const DetailsScreen = ({route}) => {
   const [sum, setSum] = useState<Number>(0);
+  const detailsScreen = useRef<CardComponentRef>(null);
 
-
+  const onPressChangeBackground = () => {
+    const colors = ['tomato', 'lightblue','lightgreen','orange']
+    const index:number = Math.round((Math.random())*10%3);
+    console.log(index);
+    detailsScreen.current?.setBackground(colors[index]);
+  }
   const item: CardProps = 
     {
       id: route.params.id,
@@ -34,9 +41,10 @@ const DetailsScreen = ({route}) => {
       },[sum])
     }
     const renderCardComponent = (item: CardProps) => {
-      return <CardComponent prop={item} onPress={() => setSum(sum+1)} />;
+      return <CardComponent prop={item} onPress={() => setSum(sum+1)} ref = {detailsScreen} />;
     };
-    
+
+
   return (
     <SafeAreaView
       style={{
@@ -46,7 +54,7 @@ const DetailsScreen = ({route}) => {
         backgroundColor: 'tomato',
       }}>
         {renderCardComponent(item)}
-        <Pressable style={{width:50,height:50,marginTop:30, backgroundColor:'lightblue'}} onPress={()=>console.log(sum)}></Pressable>
+        <Pressable style={{width:50,height:50,marginTop:30, backgroundColor:'lightblue'}} onPress={onPressChangeBackground}></Pressable>
       {/* <View style={style.component}>
         <Pressable
           style={style.imageContainerStyle}
