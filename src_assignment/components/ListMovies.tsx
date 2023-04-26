@@ -21,6 +21,10 @@ import {CardComponentRef} from '../types/CardComponentRef';
 import {Post} from '../../src/types/Props';
 import CardComponent from './CardComponent';
 import {searchHook} from '../../src_assignment_week7/hooks/use-search-hook';
+import { useNavigation } from '@react-navigation/native';
+import DetailsScreen from '../navigation/screens/DetailsScreen';
+import useMovieStore, { MovieState } from '../../src_assignment_week7/store/useMovieStore';
+import { AppRoutes } from '../navigation/routes/app-routes';
 
 interface CardProp {
   prop: CardProps;
@@ -52,16 +56,17 @@ const fixedData: Post[] = [
 ];
 
 export const ListMovies = () => {
+  const navigation = useNavigation();
   const renderCardComponent = ({item}: ListRenderItemInfo<CardProps>) => {
-    return <CardComponent prop={item} onPress={() => console.log('pressed')} />;
+    return <CardComponent prop={item} onPress={() => {navigation.navigate(AppRoutes.DetailsScreen)}} />;
   };
-  const [filteredData, setFilteredData] = useState<Post[]>(fixedData);
+  // const [filteredData, setFilteredData] = useState<Post[]>(fixedData);
   const [searchQuery, setSearchQuery] = useState('');
   const data = searchHook(fixedData, searchQuery, 'title');
-
-  useEffect(() => {
-    setFilteredData(data);
-  }, [data]);
+  const {movie, setCurrentMovie}=useMovieStore((state:MovieState) => ({movie:state.movies, setCurrentMovie:state.setCurrentMovie}));
+  // useEffect(() => {
+  //   setFilteredData(data);
+  // }, [data]) 
 
   return (
     <View style={style.container}>
@@ -70,7 +75,7 @@ export const ListMovies = () => {
         value={searchQuery}
         style={style.textInput}></TextInput>
       <FlatList
-        data={filteredData}
+        data={movie}
         renderItem={renderCardComponent}
         ItemSeparatorComponent={() => (
           <View

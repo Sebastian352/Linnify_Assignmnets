@@ -130,7 +130,7 @@ function App(): JSX.Element {
   return (
     <SafeAreaView style={{flex: 1}}>
       <NavigationContainer>
-        <AppNavigatorInfo />
+        <AppNavigator />
       </NavigationContainer>
     </SafeAreaView>
   );

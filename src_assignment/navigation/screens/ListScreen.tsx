@@ -19,8 +19,12 @@ import {useEffect, useState} from 'react';
 import {searchHook} from '../../../src_assignment_week7/hooks/use-search-hook';
 import SearchBar from '../../components/SearchBar';
 import ListMovies from '../../components/ListMovies';
+import {MMKV} from 'react-native-mmkv'
 
 export const ListScreen = () => {
+const storage = new MMKV();
+storage.set("anykey","secret");
+
   return (
     <SafeAreaView
       style={{

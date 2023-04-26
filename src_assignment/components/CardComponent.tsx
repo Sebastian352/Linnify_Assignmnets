@@ -1,9 +1,10 @@
 import {FlatList, StyleSheet, Text, View, Image, Pressable} from 'react-native';
 
 import {CardProps} from '../types/CardProps';
-import { ForwardedRef, forwardRef, useImperativeHandle, useState } from 'react';
+import { ForwardedRef, forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 import { CardComponentRef } from '../types/CardComponentRef';
-
+import { useNavigation } from '@react-navigation/native';
+import {MMKV} from 'react-native-mmkv'
 interface CardProp {
   prop: CardProps;
   onPress: () => void;
@@ -12,12 +13,18 @@ interface CardProp {
 
 
 export const CardComponent = forwardRef((props: CardProp,ref:ForwardedRef<CardComponentRef>) => {
-  
+  const navigation = useNavigation();
   const [background,setBackground] = useState('white');
 
   useImperativeHandle(ref,() =>({
     setBackground:(bg:string) => {setBackground(bg)}
   }));
+  const storage = new MMKV();
+
+  useEffect(()=>{
+    const res = storage.getString("anykey");
+    console.log(res);
+    },[])
   return (
     <Pressable style={style.component} onPress={props.onPress}>
       <View style={style.imageContainerStyle}>

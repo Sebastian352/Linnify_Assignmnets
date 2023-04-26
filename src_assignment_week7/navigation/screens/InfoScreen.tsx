@@ -9,6 +9,12 @@ const InfoScreen = () => {
   const onPress = () => {
     console.log('pressed');
     console.log(infoScreenRef.current?.getData());
+    if(infoScreenRef.current?.getData().faculty && infoScreenRef.current?.getData().firstName && infoScreenRef.current?.getData().lastName &&infoScreenRef.current?.getData().year)
+    {
+      infoScreenRef.current.setBorderColor('green');
+    }else{
+      infoScreenRef.current?.setBorderColor('tomato')
+    }
   };
   return (
     <SafeAreaView style={{flex: 1}}>

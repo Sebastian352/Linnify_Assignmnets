@@ -15,12 +15,15 @@ import {CardProps} from '../../types/CardProps';
 import {Post} from '../../../src/types/Props';
 import { useEffect, useRef, useState } from 'react';
 import { CardComponentRef } from '../../types/CardComponentRef';
+import useMovieStore, { MovieState } from '../../../src_assignment_week7/store/useMovieStore';
 
 
 
-const DetailsScreen = ({route}) => {
+const DetailsScreen = () => {
   const [sum, setSum] = useState<Number>(0);
   const detailsScreen = useRef<CardComponentRef>(null);
+
+  const {movie}=useMovieStore((state:MovieState) => ({movie:state.movie}));
 
   const onPressChangeBackground = () => {
     const colors = ['tomato', 'lightblue','lightgreen','orange']
@@ -30,10 +33,10 @@ const DetailsScreen = ({route}) => {
   }
   const item: CardProps = 
     {
-      id: route.params.id,
-      image: route.params.image,
-      title: route.params.title,
-      description: route.params.description,
+      id: movie?.id,
+      image: movie?.image,
+      title: movie?.title,
+      description: movie?.description,
     }
     {
       useEffect(() => {

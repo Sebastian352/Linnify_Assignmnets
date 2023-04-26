@@ -27,20 +27,11 @@ export const PersonalInfoImperative = forwardRef(
         setData: (fn: string, ln: string, fclty: string, yr: string) => {
           setFirstName(fn), setLastName(ln), setFaculty(fclty), setYear(yr);
         },
+        setBorderColor: (bc:string) =>{setBorderColor(bc)}
       }),
     );
 
-    useEffect(() => {
-      let ok = false;
-      if (firstName && lastName && faculty && year) {
-        ok = true;
-      }
-      if (!ok) {
-        setBorderColor('tomato');
-      } else {
-        setBorderColor('green');
-      }
-    }, [firstName, lastName, faculty, year]);
+   
 
     const onPress = () => {
       console.log();
@@ -58,6 +49,7 @@ export const PersonalInfoImperative = forwardRef(
           <TextInput
             style={[styles.TextInput, {borderColor: borderColor}]}
             value={lastName}
+            onChangeText={setLastName}
           />
         </View>
         <View style={styles.separator} />
@@ -65,10 +57,12 @@ export const PersonalInfoImperative = forwardRef(
           <TextInput
             style={[styles.TextInput, {borderColor: borderColor}]}
             value={faculty}
+            onChangeText={setFaculty}
           />
           <TextInput
             style={[styles.TextInput, {borderColor: borderColor}]}
             value={year}
+            onChangeText={setYear}
           />
         </View>
         <View style={styles.separator} />
@@ -108,6 +102,7 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     marginVertical: 10,
     backgroundColor: 'white',
+    padding:5,
   },
 });
 
