@@ -37,6 +37,7 @@ import {BottomTabs} from './src/navigation/navigators/tab-navigator';
 import {AppNavigator} from './src_assignment/navigation/navigators/app-navigation';
 import Login from './src_assignment/navigation/screens/Login';
 import SearchBar from './src_assignment/components/SearchBar';
+import {AppNavigatorInfo} from './src_assignment_week7/navigation/navigators/app-nav';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -127,10 +128,11 @@ function App(): JSX.Element {
   };
 
   return (
-    <SafeAreaView style={{flex:1}}>
-      <SearchBar/>
+    <SafeAreaView style={{flex: 1}}>
+      <NavigationContainer>
+        <AppNavigatorInfo />
+      </NavigationContainer>
     </SafeAreaView>
-
   );
 
   // <NavigationContainer>
