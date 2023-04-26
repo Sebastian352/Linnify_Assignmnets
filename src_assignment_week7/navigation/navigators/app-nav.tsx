@@ -8,15 +8,19 @@ import Texts from '../../../src/components/texts';
 import {useNavigation} from '@react-navigation/native';
 import {AppRouteProps, AppRoutes} from '../routes/app-route';
 import {PersonalInfo} from '../../components/PersonalInfo';
-
+import InfoScreen from '../screens/InfoScreen';
 const Stack = createStackNavigator<AppRouteProps>();
 
 export const AppNavigatorInfo = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen
+      {/* <Stack.Screen
         name={AppRoutes.PersonalInfo}
-        component={PersonalInfo}></Stack.Screen>
+        component={PersonalInfo}></Stack.Screen> */}
+      <Stack.Screen
+        name={AppRoutes.PersonalInfoImperative}
+        component={InfoScreen}
+      />
     </Stack.Navigator>
   );
 };
