@@ -7,6 +7,7 @@ import {
   Pressable,
   ListRenderItemInfo,
   TextInput,
+  ActivityIndicator,
 } from 'react-native';
 
 import {CardProps} from '../types/CardProps';
@@ -25,48 +26,65 @@ import { useNavigation } from '@react-navigation/native';
 import DetailsScreen from '../navigation/screens/DetailsScreen';
 import useMovieStore, { MovieState } from '../../src_assignment_week7/store/useMovieStore';
 import { AppRoutes } from '../navigation/routes/app-routes';
+import {getMovies as fetchMovies} from '../../src_assignment_week7/services/movie.service'
 
 interface CardProp {
   prop: CardProps;
   onPress: () => void;
 }
 
-const fixedData: Post[] = [
-  {
-    id: 1,
-    image: require('../assets/inception.jpg'),
-    title: 'Inception (2010)',
-    description:
-      "Cobb steals information from his targets by entering their dreams. Saito offers to wipe clean Cobb's criminal history as payment for performing an inception on his sick competitor's son.",
-  },
-  {
-    id: 2,
-    image: require('../assets/parasite.jpg'),
-    title: 'Parasite (2019)',
-    description:
-      'The struggling Kim family sees an opportunity when the son starts working for the wealthy Park family. Soon, all of them find a way to work within the same household and start living a parasitic life.',
-  },
-  {
-    id: 3,
-    image: require('../assets/interstellar.png'),
-    title: 'Interstellar (2014)',
-    description:
-      'When Earth becomes uninhabitable in the future, a farmer and ex-NASA pilot, Joseph Cooper, is tasked to pilot a spacecraft, along with a team of researchers, to find a new planet for humans.',
-  },
-];
+
 
 export const ListMovies = () => {
+
+  const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [page,setPage] = useState(1);
+  const [endOfPage,setEndOfPage] = useState(false);
+  const [refreshing, setRefresing] = useState(false);
+
   const navigation = useNavigation();
   const renderCardComponent = ({item}: ListRenderItemInfo<CardProps>) => {
-    return <CardComponent prop={item} onPress={() => {navigation.navigate(AppRoutes.DetailsScreen)}} />;
+    return <CardComponent prop={item} onPress={() => {setCurrentMovie(item),navigation.navigate(AppRoutes.DetailsScreen)}} />;
   };
   // const [filteredData, setFilteredData] = useState<Post[]>(fixedData);
   const [searchQuery, setSearchQuery] = useState('');
-  const data = searchHook(fixedData, searchQuery, 'title');
-  const {movie, setCurrentMovie}=useMovieStore((state:MovieState) => ({movie:state.movies, setCurrentMovie:state.setCurrentMovie}));
+  //const data = searchHook(fixedData, searchQuery, 'title');
+  const {movie, setCurrentMovie,getMovies}=useMovieStore((state:MovieState) => ({movie:state.movies, setCurrentMovie:state.setCurrentMovie, getMovies: state.getMovies}));
   // useEffect(() => {
   //   setFilteredData(data);
   // }, [data]) 
+
+  const oER = () => {
+    if(!loading && !loadingMore)
+      setPage(page+1);
+      
+    console.log('Page: ',page);
+  }
+
+  const oR = () =>{
+    if(!loading && !loadingMore)
+      setPage(1);
+    console.log('Refreshed',page);
+  }
+
+  const handleFetch = async()=>{
+    const data = await fetchMovies(5,page);
+    if(!data){
+      setEndOfPage(true)
+    }
+    getMovies([...movie,...data]);
+  }
+
+  useEffect(()=>{
+    if(!endOfPage){
+      handleFetch();
+    }
+    setLoading(false);
+    setLoadingMore(false);
+    setRefresing(false)
+    },[page]);
+
 
   return (
     <View style={style.container}>
@@ -77,6 +95,8 @@ export const ListMovies = () => {
       <FlatList
         data={movie}
         renderItem={renderCardComponent}
+        keyExtractor={(item,index) => index.toString()}
+        contentContainerStyle={!movie.length ? {flex:1,justifyContent:'center', alignItems:'center'}: {}}
         ItemSeparatorComponent={() => (
           <View
             style={{
@@ -85,6 +105,10 @@ export const ListMovies = () => {
               backgroundColor: 'lightblue',
             }}></View>
         )}
+        onEndReached={oER}
+        onEndReachedThreshold={0.5}
+        onRefresh={oR}
+        refreshing={refreshing}
         ListHeaderComponent={() => (
           <View
             style={{
@@ -92,6 +116,9 @@ export const ListMovies = () => {
               height: 50,
               backgroundColor: 'lightblue',
             }}></View>
+        )}
+        ListEmptyComponent={() =>(
+            <ActivityIndicator size={'large'}/>
         )}
         ListFooterComponent={() => (
           <View

@@ -7,21 +7,24 @@ const fixedData: Movie[] = [
     {
       id: 1,
       image: require('../../src_assignment/assets/inception.jpg'),
-      title: 'Inception (2010)',
+      name: 'Inception (2010)',
+      title:'random',
       description:
         "Cobb steals information from his targets by entering their dreams. Saito offers to wipe clean Cobb's criminal history as payment for performing an inception on his sick competitor's son.",
     },
     {
       id: 2,
       image: require('../../src_assignment/assets/parasite.jpg'),
-      title: 'Parasite (2019)',
+      name: 'Parasite (2019)',
+      title:'random',
       description:
         'The struggling Kim family sees an opportunity when the son starts working for the wealthy Park family. Soon, all of them find a way to work within the same household and start living a parasitic life.',
     },
     {
       id: 3,
       image: require('../../src_assignment/assets/interstellar.png'),
-      title: 'Interstellar (2014)',
+      name: 'Interstellar (2014)',
+      title:'random',
       description:
         'When Earth becomes uninhabitable in the future, a farmer and ex-NASA pilot, Joseph Cooper, is tasked to pilot a spacecraft, along with a team of researchers, to find a new planet for humans.',
     },
@@ -31,17 +34,23 @@ const fixedData: Movie[] = [
 export interface MovieState{
     movies : Movie[];
     movie  : Movie | null;
-    setCurrentMovie: (movie:Movie) => void
+    setCurrentMovie: (movie:Movie) => void;
+    getMovies: (array: Movie[]) => void;
 }
 
-const useMovieStore = create(persist<MovieState>((set) => ({
-  movies:fixedData,
+const useMovieStore = create<MovieState>(
+  // persist<MovieState>(
+    (set) => ({
+  movies:[],
   movie: null,
   setCurrentMovie: (newMovie: Movie) => set((state: MovieState) => ({ movie: newMovie })),
-}),{
-  name:'movie-storage',
-  storage:createJSONStorage(()=> zustandStorage)
-}))
+  getMovies: (arr:Movie[]) => set((state:MovieState)=>({movies:arr})),
+})
+// ,{
+//   name:'movie-storage',
+//   storage:createJSONStorage(()=> zustandStorage)
+// })
+)
 
 export default useMovieStore;
 

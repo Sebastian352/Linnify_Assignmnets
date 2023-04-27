@@ -16,6 +16,8 @@ export const CardComponent = forwardRef((props: CardProp,ref:ForwardedRef<CardCo
   const navigation = useNavigation();
   const [background,setBackground] = useState('white');
 
+
+
   useImperativeHandle(ref,() =>({
     setBackground:(bg:string) => {setBackground(bg)}
   }));
@@ -28,10 +30,10 @@ export const CardComponent = forwardRef((props: CardProp,ref:ForwardedRef<CardCo
   return (
     <Pressable style={style.component} onPress={props.onPress}>
       <View style={style.imageContainerStyle}>
-        <Image source={props.prop.image} style={style.imageStyle} />
+        <Image source={{uri: props.prop.image}} style={style.imageStyle} />
       </View>
       <View style={[style.textContainerStyle,{backgroundColor:background}]}>
-        <Text style={style.titleStyle}>{props.prop.title}</Text>
+        <Text style={style.titleStyle}>{props.prop.name}</Text>
         <Text style={style.textStyle} numberOfLines={3}>
           {props.prop.description}
         </Text>
@@ -59,6 +61,7 @@ const style = StyleSheet.create({
   imageStyle: {
     zIndex: 1,
     height: 200,
+    width:'100%',
     borderRadius: 35,
     maxWidth: '100%',
     maxHeight: '100%',

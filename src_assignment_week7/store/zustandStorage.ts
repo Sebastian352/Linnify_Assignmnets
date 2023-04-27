@@ -1,4 +1,4 @@
-import { StateS  torage } from 'zustand/middleware'
+import { StateStorage } from 'zustand/middleware'
 import { MMKV } from 'react-native-mmkv'
 
 const storage = new MMKV()
